@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>L'histoire de Michel — KUTSH</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;0,9..144,800;1,9..144,400&family=Work+Sans:wght@300;400;500;600&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --navy: #1B2A4A;
+            --cerulean: #0596DE;
+            --corail: #E8614D;
+            --gris-clair: #F5F5F0;
+            --gris-moyen: #8A8F94;
+            --blanc: #FFFFFF;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Work Sans', sans-serif;
+            background: var(--navy);
+            color: var(--blanc);
+            line-height: 1.6;
+        }
+
+        /* HERO */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+            background: linear-gradient(135deg, var(--navy) 0%, #0d1a30 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 30% 40%, rgba(5, 150, 222, 0.08) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 60%, rgba(232, 97, 77, 0.06) 0%, transparent 50%);
+            animation: slowPulse 12s ease-in-out infinite;
+        }
+
+        @keyframes slowPulse {
+            0%, 100% { transform: scale(1); opacity: 0.7; }
+            50% { transform: scale(1.05); opacity: 1; }
+        }
+
+        .hero h1 {
+            font-family: 'Fraunces', serif;
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 span {
+            color: var(--corail);
+        }
+
+        .hero .subtitle {
+            font-size: clamp(1rem, 2vw, 1.4rem);
+            font-weight: 300;
+            color: var(--gris-moyen);
+            max-width: 600px;
+            margin-bottom: 3rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero .scroll-hint {
+            position: relative;
+            z-index: 1;
+            animation: bounce 2s infinite;
+            color: var(--cerulean);
+            font-size: 1.5rem;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(10px); }
+        }
+
+        /* PANELS */
+        .panel {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        .panel.reverse {
+            direction: rtl;
+        }
+
+        .panel.reverse > * {
+            direction: ltr;
+        }
+
+        .panel-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .panel-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: clamp(2rem, 5vw, 5rem);
+            position: relative;
+        }
+
+        .panel-chapter {
+            font-family: 'DM Mono', monospace;
+            font-size: 0.8rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--cerulean);
+            margin-bottom: 1rem;
+        }
+
+        .panel-title {
+            font-family: 'Fraunces', serif;
+            font-size: clamp(1.5rem, 3vw, 2.5rem);
+            font-weight: 600;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+        }
+
+        .panel-text {
+            font-size: clamp(0.95rem, 1.3vw, 1.1rem);
+            font-weight: 300;
+            line-height: 1.8;
+            color: rgba(255,255,255,0.85);
+            max-width: 520px;
+        }
+
+        .panel-text strong {
+            color: var(--corail);
+            font-weight: 500;
+        }
+
+        .panel-text .highlight {
+            color: var(--cerulean);
+            font-weight: 500;
+        }
+
+        /* TIMELINE MARKERS */
+        .date-badge {
+            display: inline-block;
+            background: var(--corail);
+            color: var(--blanc);
+            font-family: 'DM Mono', monospace;
+            font-size: 0.75rem;
+            padding: 0.3rem 0.8rem;
+            border-radius: 2px;
+            margin-bottom: 1rem;
+            letter-spacing: 1px;
+        }
+
+        /* FULL-WIDTH PANELS */
+        .panel-full {
+            position: relative;
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .panel-full .bg-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.3);
+        }
+
+        .panel-full .overlay-content {
+            position: relative;
+            z-index: 2;
+            max-width: 700px;
+            padding: 2rem;
+        }
+
+        .panel-full .overlay-content h2 {
+            font-family: 'Fraunces', serif;
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+        }
+
+        .panel-full .overlay-content p {
+            font-size: clamp(1rem, 1.5vw, 1.2rem);
+            font-weight: 300;
+            line-height: 1.8;
+            color: rgba(255,255,255,0.9);
+        }
+
+        /* ALERT PANEL (rejection) */
+        .alert-panel {
+            background: linear-gradient(135deg, #2d1215 0%, var(--navy) 100%);
+        }
+
+        .alert-panel .panel-title {
+            color: var(--corail);
+        }
+
+        /* SOLUTION PANEL */
+        .solution-bg {
+            background: linear-gradient(135deg, var(--navy) 0%, #0a2035 50%, #1B2A4A 100%);
+        }
+
+        /* KUTSH BADGE */
+        .kutsh-badge {
+            display: inline-block;
+            font-family: 'Fraunces', serif;
+            font-weight: 800;
+            font-size: 1.2em;
+            color: var(--cerulean);
+            letter-spacing: 2px;
+        }
+
+        /* STATS */
+        .stats-row {
+            display: flex;
+            gap: 2rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-family: 'Fraunces', serif;
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--corail);
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--gris-moyen);
+            margin-top: 0.3rem;
+        }
+
+        /* FINAL CTA */
+        .cta-section {
+            min-height: 60vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 4rem 2rem;
+            background: linear-gradient(180deg, var(--navy) 0%, #0d1a30 100%);
+        }
+
+        .cta-section h2 {
+            font-family: 'Fraunces', serif;
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+
+        .cta-section h2 span {
+            color: var(--cerulean);
+        }
+
+        .cta-section p {
+            font-size: 1.1rem;
+            font-weight: 300;
+            color: var(--gris-moyen);
+            max-width: 500px;
+            margin-bottom: 2rem;
+        }
+
+        .cta-tagline {
+            font-family: 'DM Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--gris-moyen);
+            letter-spacing: 2px;
+            margin-top: 2rem;
+        }
+
+        /* DIVIDER */
+        .divider {
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--cerulean), var(--corail), transparent);
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .panel {
+                grid-template-columns: 1fr;
+                min-height: auto;
+            }
+
+            .panel.reverse {
+                direction: ltr;
+            }
+
+            .panel-image {
+                height: 50vw;
+                min-height: 250px;
+            }
+
+            .panel-content {
+                padding: 2rem;
+            }
+
+            .stats-row {
+                gap: 1rem;
+            }
+        }
+
+        /* FADE-IN ANIMATION */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HERO -->
+    <section class="hero">
+        <h1>L'histoire de <span>Michel</span></h1>
+        <p class="subtitle">Quand un projet simple se transforme en parcours administratif complexe</p>
+        <div class="scroll-hint">&#8595;</div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- SCENE 1: L'idée -->
+    <section class="panel">
+        <img src="images/scene01.png" alt="Michel dans son jardin" class="panel-image">
+        <div class="panel-content fade-in">
+            <span class="panel-chapter">Chapitre 01</span>
+            <span class="date-badge">Février</span>
+            <h2 class="panel-title">L'idée</h2>
+            <p class="panel-text">
+                Michel a 60 ans. Il vit à Rouen et est propriétaire de sa maison depuis de nombreuses années.<br><br>
+                Un matin de février, alors qu'il profite d'un rayon de soleil dans son jardin, une idée lui vient : <strong>installer une pergola sur sa terrasse</strong> pour profiter pleinement de l'été.<br><br>
+                Le projet lui paraît simple. Une petite structure, quelques poteaux, une couverture légère.
+            </p>
+        </div>
+    </section>
+
+    <!-- SCENE 2: Le showroom -->
+    <section class="panel reverse">
+        <img src="images/scene02.png" alt="Michel au showroom avec Patrick" class="panel-image">
+        <div class="panel-content fade-in">
+            <span class="panel-chapter">Chapitre 02</span>
+            <span class="date-badge">Début mars</span>
+            <h2 class="panel-title">Une solution rapide</h2>
+            <p class="panel-text">
+                Michel se rend dans un showroom près de chez lui. Il rencontre Patrick, un professionnel qui installe ce type de structures.<br><br>
+                Le devis est clair : pergola de <strong>25 m²</strong>, installation complète, <strong>10 000 €</strong>. Pose prévue début mai.<br><br>
+                Michel est ravi. Le projet semble simple, rapide et accessible. Il accepte le devis.
+            </p>
+        </div>
+    </section>
+
+    <!-- SCENE 3: La découverte administrative -->
+    <section class="panel">
+        <img src="images/scene03.png" alt="Michel découvre les démarches" class="panel-image">
+        <div class="panel-content fade-in">
+            <span class="panel-chapter">Chapitre 03</span>
+            <h2 class="panel-title">La douche froide</h2>
+            <p class="panel-text">
+                Mais très vite, une question apparaît : <strong>faut-il une autorisation d'urbanisme ?</strong><br><br>
+                Patrick lui explique qu'il faudra déposer une <span class="highlight">déclaration préalable de travaux</span> auprès de la mairie.<br><br>
+                Sans ça, le risque est réel : entre <strong>1 600 € et 3 200 € du m² construit</strong> d'amende. Plus une taxe d'aménagement et une taxe foncière.<br><br>
+                Michel découvre que même un projet modeste peut être soumis à de nombreuses obligations.
+            </p>
+        </div>
+    </section>
+
+    <!-- SCENE 4: La constitution du dossier -->
+    <section class="panel reverse">
+        <img src="images/scene04.png" alt="Constitution du dossier administratif" class="panel-image">
+        <div class="panel-content fade-in">
+            <span class="panel-chapter">Chapitre 04</span>
+            <span class="date-badge">5 mars</span>
+            <h2 class="panel-title">La paperasse</h2>
+            <p class="panel-text">
+                Le commercial de Patrick prépare le dossier. Formulaire CERFA, plan de situation, plan de masse, plans de façade, documents graphiques...<br><br>
+                Ce n'est pas son travail, mais <strong>il n'a pas le choix</strong>. Entre deux et cinq heures de conception, parfois bien plus.<br><br>
+                La déclaration est déposée au service urbanisme de la mairie. Michel pense que tout va suivre son cours tranquillement.
+            </p>
+        </div>
+    </section>
+
+    <!-- SCENE 5: L'instruction -->
+    <section class="panel">
+        <img src="images/scene05.png" alt="Inès instruit le dossier" class="panel-image">
+        <div class="panel-content fade-in">
+            <span class="panel-chapter">Chapitre 05</span>
+            <span class="date-badge">20 mars</span>
+            <h2 class="panel-title">L'instruction</h2>
+            <p class="panel-text">
+                Le dossier arrive sur le bureau d'Inès, instructrice des autorisations du droit des sols.<br><br>
+                Elle doit vérifier la conformité au regard du <span class="highlight">PLU</span>, du <span class="highlight">SCOT</span>, des servitudes d'utilité publique, des plans de prévention des risques, du code de l'urbanisme, du code de la construction, du code de l'environnement...<br><br>
+                Au total, ce sont <strong>des milliers de pages de règles</strong> qui encadrent les projets de construction.
+            </p>
+        </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- SCENE 6: Le refus -->
+    <section class="panel alert-panel">
+        <img src="images/scene06.png" alt="Michel reçoit le refus" class="panel-image">
+        <div class="panel-content fade-in">
+            <span class="panel-chapter">Chapitre 06</span>
+            <span class="date-badge">5 avril</span>
+            <h2 class="panel-title">Opposition.</h2>
+            <p class="panel-text">
+                Le verdict tombe. Michel reçoit un courrier de la mairie : <strong>opposition à la déclaration préalable</strong>.<br><br>
+                La couleur de la structure, la surface de la pergola, certaines règles du PLU non respectées...<br><br>
+                Michel ne comprend pas. Patrick est surpris. Le projet semblait pourtant simple.
+            </p>
+        </div>
+    </section>
+
+    <!-- SCENE 7: Les modifications -->
+    <section class="panel reverse">
+        <img src="images/scene07.png" alt="Modification du projet" class="panel-image">
+        <div class="panel-content fade-in">
+            <span class="panel-chapter">Chapitre 07</span>
+            <span class="date-badge">Mars → Juin</span>
+            <h2 class="panel-title">Retour à la case départ</h2>
+            <p class="panel-text">
+                Patrick doit revoir le projet : ajuster les dimensions, modifier les aspects esthétiques, vérifier les règles du PLU.<br><br>
+                Le projet est corrigé et présenté de nouveau.<br><br>
+                Finalement, le <strong>5 juin</strong>, la déclaration est acceptée. Mais <strong>plusieurs mois se sont écoulés</strong> depuis l'idée initiale de Michel.
+            </p>
+        </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- SCENE 8: Le problème systémique -->
+    <section class="panel-full">
+        <img src="images/scene08.png" alt="Le problème systémique" class="bg-image">
+        <div class="overlay-content fade-in">
+            <h2>Un problème <span style="color: var(--corail)">structurel</span></h2>
+            <p>
+                L'histoire de Michel n'est pas un cas isolé. Le particulier ne maîtrise pas les règles. Le professionnel se concentre sur la technique. L'instructeur doit analyser des milliers de pages de réglementation. Chaque acteur travaille de son côté, et les erreurs ne sont découvertes qu'au moment de l'instruction.
+            </p>
+            <div class="stats-row" style="justify-content: center;">
+                <div class="stat">
+                    <div class="stat-number">1h30</div>
+                    <div class="stat-label">par dossier en moyenne</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">2,5M</div>
+                    <div class="stat-label">demandes par an en France</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">M€</div>
+                    <div class="stat-label">de coûts publics annuels</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- SCENE 9: La solution KUTSH -->
+    <section class="panel solution-bg">
+        <img src="images/scene09.png" alt="La solution KUTSH" class="panel-image">
+        <div class="panel-content fade-in">
+            <span class="panel-chapter">La solution</span>
+            <h2 class="panel-title">Et si la conformité était vérifiée <span style="color: var(--cerulean)">avant</span> le dépôt ?</h2>
+            <p class="panel-text">
+                C'est précisément ce que résout <span class="kutsh-badge">KUTSH</span>.<br><br>
+                Grâce à l'intelligence artificielle, KUTSH analyse <strong>en temps réel</strong> la conformité d'un projet au regard des règlements d'urbanisme, des documents de planification et des codes juridiques applicables.<br><br>
+                Particuliers, professionnels et services instructeurs peuvent <span class="highlight">anticiper les problèmes avant même le dépôt</span>.
+            </p>
+        </div>
+    </section>
+
+    <!-- SCENE 10: Happy ending -->
+    <section class="panel-full">
+        <img src="images/scene10.png" alt="Michel sous sa pergola" class="bg-image" style="filter: brightness(0.45);">
+        <div class="overlay-content fade-in">
+            <h2>Réduire les erreurs.<br>Accélérer l'instruction.<br>Diminuer les coûts.<br><span style="color: var(--cerulean)">Fluidifier le processus.</span></h2>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section">
+        <h2><span>KUTSH</span></h2>
+        <p>Le moteur IA de conformité pour les autorisations d'urbanisme</p>
+        <div class="cta-tagline">L'urbanisme, enfin lisible.</div>
+    </section>
+
+    <script>
+        // Intersection Observer for fade-in animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, {
+            threshold: 0.2,
+            rootMargin: '0px 0px -50px 0px'
+        });
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    </script>
+
+</body>
+</html>
